@@ -1,0 +1,49 @@
+
+{% extends 'associados/base.html' %}
+{% load grupos %}
+{% block title %}Lista de Associados{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold">Associados</h1>
+    {% if user.is_superuser or user|has_group:"master" %}
+        <a href="{% url 'associado_create' %}" class="btn btn-primary">+ Novo Associado</a>
+    {% endif %}
+</div>
+
+{% if associados %}
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <table class="table table-hover table-striped mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th>Nome</th>
+          <th>Documento</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th style="width:220px">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in associados %}
+        <tr>
+          <td>{{ a.nome }}</td>
+          <td>{{ a.documento }}</td>
+          <td>{{ a.email }}</td>
+          <td>{{ a.get_status_display }}</td>
+          <td>
+            <a href="{% url 'associado_detalhes' a.pk %}" class="btn btn-sm btn-info">Detalhes</a>
+            {% if user.is_superuser or user|has_group:"master" %}
+              <a href="{% url 'associado_edit' a.pk %}" class="btn btn-sm btn-warning">Editar</a>
+              <a href="{% url 'associado_delete' a.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+  <div class="alert alert-info">Nenhum associado cadastrado.</div>
+{% endif %}
+{% endblock %}

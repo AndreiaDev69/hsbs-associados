@@ -1,0 +1,16 @@
+
+{% extends 'associados/base.html' %}
+{% block title %}Excluir Associado{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2>Excluir Associado</h2>
+    <p>Tem certeza que deseja excluir <strong>{{ associado.nome }}</strong>?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn btn-danger">Sim, excluir</button>
+      <a class="btn btn-secondary" href="{% url 'associados_list' %}">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+{% extends 'associados/base.html' %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="mb-3">{{ titulo }}</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label class="form-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+          {% endif %}
+          {% if field.errors %}
+            <div class="text-danger small">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button class="btn btn-success">Salvar</button>
+      <a class="btn btn-secondary" href="{% url 'associados_list' %}">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

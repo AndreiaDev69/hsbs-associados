@@ -1,0 +1,38 @@
+
+{% extends 'associados/base.html' %}
+{% block title %}Início{% endblock %}
+{% block content %}
+<h1 class="mb-4">Painel Inicial</h1>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Parte 1 – Cadastro de Associados</h5>
+        <p class="card-text">Cadastro e gestão dos associados, status, dados principais.</p>
+        <a href="{% url 'associados_list' %}" class="btn btn-primary">Abrir Cadastro</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Parte 2 – Financeiro & Auditoria</h5>
+        <p class="card-text">Dentro de cada associado, acesse financeiro e movimentações.</p>
+        <a href="{% url 'associados_list' %}" class="btn btn-outline-primary">Abrir Associados</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Parte 3 – Área do Associado</h5>
+        <p class="card-text">Espaço para formulários, relatórios e uploads (em construção).</p>
+        <a href="{% url 'relatorios' %}" class="btn btn-outline-secondary">Ver status</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+
+{% extends 'associados/base.html' %}
+{% block title %}Financeiro - {{ associado.nome }}{% endblock %}
+{% block content %}
+<h2>Financeiro de {{ associado.nome }}</h2>
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h5>Novo lançamento</h5>
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="mb-2">
+              <label class="form-label">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger small">{{ field.errors|striptags }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button class="btn btn-success btn-sm mt-2">Adicionar</button>
+          <a href="{% url 'associado_detalhes' associado.pk %}" class="btn btn-secondary btn-sm mt-2">Voltar</a>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <h5>Lançamentos</h5>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Tipo</th>
+          <th>Descrição</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in lancamentos %}
+          <tr>
+            <td>{{ l.data }}</td>
+            <td>{{ l.get_tipo_display }}</td>
+            <td>{{ l.descricao }}</td>
+            <td>R$ {{ l.valor }}</td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4">Sem lançamentos.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
