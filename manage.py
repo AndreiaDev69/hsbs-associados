@@ -1,20 +1,18 @@
-from django.apps import AppConfig
+# ...existing code...
+#!/usr/bin/env python
 import os
+import sys
 
-class CoreConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'core'
+def main():
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Não foi possível importar Django. Instale as dependências e ative o ambiente virtual."
+        ) from exc
+    execute_from_command_line(sys.argv)
 
-    def ready(self):
-        # Caminho da pasta principal do projeto (onde está o manage.py)
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-        # Pastas que queremos garantir que existam
-        pastas = ['xml', 'relatorios']
-
-        for pasta in pastas:
-            caminho = os.path.join(base_dir, pasta)
-
-            if not os.path.exists(caminho):
-                os.makedirs(caminho)
-                print(f"Pasta criada automaticamente: {caminho}")
+if __name__ == '__main__':
+    main()
+# ...existing code...
